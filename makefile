@@ -1,45 +1,59 @@
-# Makefile for compiling a C++ program
+# Pre-compiler and Compiler flags
+CXX_FLAGS := -Wall -Wextra -std=c++17 -ggdb
+PRE_FLAGS := -MMD -MP
 
-# Compiler
-CXX = g++
+# Project directory structure
+BIN := bin
+SRC := src
+LIB := lib
+INC := include
+MAINFILE := $(SRC)/main.cpp
 
-# Compiler flags
-CXXFLAGS = -std=c++11 -Wall
+# Build directories and output
+TARGET := $(BIN)/main
+BUILD := build
 
-# Source directory
-SRC_DIR = src
+# Library search directories and flags
+EXT_LIB :=
+LDFLAGS :=
+LDPATHS := $(addprefix -L,$(LIB) $(EXT_LIB))
 
-# Source files
-SRCS = $(wildcard $(SRC_DIR)/*.cpp)
+# Include directories
+INC_DIRS := $(INC) $(shell find $(SRC) -type d)
+INC_FLAGS := $(addprefix -I,$(INC_DIRS))
 
-# Object directory
-OBJ_DIR = bin
+# Construct build output and dependency filenames
+SRCS := $(shell find $(SRC) -name *.cpp)
+OBJS := $(subst $(SRC)/,$(BUILD)/,$(addsuffix .o,$(basename $(SRCS))))
+DEPS := $(OBJS:.o=.d)
 
-# Object files
-OBJS = $(addprefix $(OBJ_DIR)/, $(notdir $(SRCS:.cpp=.o)))
+# Run task
+run: build
+	@echo "Executing..."
+	./$(TARGET) $(ARGS)
 
-# Executable name
-EXEC = $(OBJ_DIR)/p
+# Build task
+build: clean all
 
-# Default target
-all: $(OBJ_DIR) $(EXEC)
+# Main task
+all: $(TARGET)
 
-# Rule to create the object files directory
-$(OBJ_DIR):
-	mkdir -p $(OBJ_DIR)
+# Task producing target from built files
+$(TARGET): $(OBJS)
+	@echo "Building..."
+	mkdir -p $(dir $@)
+	$(CXX) $(OBJS) -o $@ $(LDPATHS) $(LDFLAGS)
 
-# Rule to compile .cpp files to .o files
-$(OBJ_DIR)/%.o: $(SRC_DIR)/%.cpp
-	$(CXX) $(CXXFLAGS) -c $< -o $@
+# Compile all cpp files
+$(BUILD)/%.o: $(SRC)/%.cpp
+	mkdir -p $(dir $@)
+	$(CXX) $(CXX_FLAGS) $(PRE_FLAGS) $(INC_FLAGS) -c -o $@ $< $(LDPATHS) $(LDFLAGS)
 
-# Rule to link object files to create executable
-$(EXEC): $(OBJS)
-	$(CXX) $(CXXFLAGS) $^ -o $@
-
-# Clean target
+# Clean task
+.PHONY: clean
 clean:
-	rm -rf $(OBJ_DIR)/*
+	@echo "Clearing..."
+	rm -rf build
 
-# Target to compile and run the program
-run: $(EXEC)
-	./$(EXEC)
+# Include all dependencies
+-include $(DEPS)

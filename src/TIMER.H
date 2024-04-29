@@ -1,6 +1,9 @@
-#include <time.h>
+#ifndef TIMER_H
+#define TIMER_H
 
-class Timer{
+#include <ctime>
+
+class Timer {
 public:
    Timer();
    double elapsed_time();
@@ -8,3 +11,5 @@ public:
 private:
    clock_t start_time;
 };
+
+#endif
