@@ -19,7 +19,7 @@ OBJ_DIR = bin
 OBJS = $(addprefix $(OBJ_DIR)/, $(notdir $(SRCS:.cpp=.o)))
 
 # Executable name
-EXEC = p
+EXEC = $(OBJ_DIR)/p
 
 # Default target
 all: $(OBJ_DIR) $(EXEC)
@@ -38,7 +38,7 @@ $(EXEC): $(OBJS)
 
 # Clean target
 clean:
-	rm -rf $(OBJ_DIR) $(EXEC)
+	rm -rf $(OBJ_DIR)/*
 
 # Target to compile and run the program
 run: $(EXEC)
