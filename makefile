@@ -27,20 +27,15 @@ SRCS := $(shell find $(SRC) -name *.cpp)
 OBJS := $(subst $(SRC)/,$(BUILD)/,$(addsuffix .o,$(basename $(SRCS))))
 DEPS := $(OBJS:.o=.d)
 
-# Run task
-run: build
-	@echo "🚀 Executing..."
-	./$(TARGET) $(ARGS)
-
 # Build task
-build: clean all
+build: $(TARGET)
 
 # Main task
 all: $(TARGET)
 
 # Task producing target from built files
 $(TARGET): $(OBJS)
-	@echo "🚧 Building..."
+	@echo "Building..."
 	mkdir -p $(dir $@)
 	$(CXX) $(OBJS) -o $@ $(LDPATHS) $(LDFLAGS)
 
@@ -49,10 +44,15 @@ $(BUILD)/%.o: $(SRC)/%.cpp
 	mkdir -p $(dir $@)
 	$(CXX) $(CXX_FLAGS) $(PRE_FLAGS) $(INC_FLAGS) -c -o $@ $< $(LDPATHS) $(LDFLAGS)
 
+# Run task
+run:
+	@echo "Executing..."
+	./$(TARGET) $(ARGS)
+
 # Clean task
 .PHONY: clean
 clean:
-	@echo "🧹 Clearing..."
+	@echo "Clearing..."
 	rm -rf build
 
 # Include all dependencies

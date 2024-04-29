@@ -1,7 +1,7 @@
-build/main.o: src/main.cpp src/algos/sequential_search.h \
- src/algos/binary_search.h src/algos/insertion_sort.h \
- src/algos/performance_quicksort.h
-src/algos/sequential_search.h:
-src/algos/binary_search.h:
-src/algos/insertion_sort.h:
-src/algos/performance_quicksort.h:
+build/main.o: src/main.cpp src/tests.h src/util/utils.h \
+ src/algos/searchAlgs.h src/algos/sortAlgs.h src/timer/timer.h
+src/tests.h:
+src/util/utils.h:
+src/algos/searchAlgs.h:
+src/algos/sortAlgs.h:
+src/timer/timer.h:

@@ -4,11 +4,11 @@ Sorting algorithm prject for TAMK course
 
 ## Grade target
 
-This project is targetting the grade 1-2 as described in the project requirements
+This project is targetting the grade 1-5 as described in the project requirements
 
 ## How to Run
 
-To run the project, you can use either the Makefile or the g++ command.
+To run the project, you can use the Makefile
 
 ### Using Makefile
 
@@ -22,18 +22,6 @@ To run the project, you can use either the Makefile or the g++ command.
     make run
     ```
 
-### Using g++ Command
+## Author
 
-1. Open a terminal and navigate to the project directory.
-2. Run the following command to compile the source files:
-    ```bash
-    g++ ./src/*.cpp -o ./bin/p
-    ```
-3. Once the compilation is successful, you can run the project using the following command:
-    ```bash
-    ./bin/p
-    ```
-
-## License
-
-[License Name](link-to-license)
+Vilho Mäkeläinen
