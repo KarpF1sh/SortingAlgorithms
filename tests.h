@@ -189,7 +189,7 @@ void performance_comparison() {
 // Perform performance comparison
 void sorting_speed() {
     // Get speed samples from 100 to 100000 with a step of 100
-    for (int i = 100; i < 100000; i = i * 100) {
+    for (int i = 100; i < 100000; i = i + 100) {
         // Generate random data from 0 to 10000 with i elements
         std::vector<int> data = utils::generateRandomData(i, 10000);
 
