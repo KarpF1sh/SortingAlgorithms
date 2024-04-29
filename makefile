@@ -29,7 +29,7 @@ DEPS := $(OBJS:.o=.d)
 
 # Run task
 run: build
-	@echo "Executing..."
+	@echo "🚀 Executing..."
 	./$(TARGET) $(ARGS)
 
 # Build task
@@ -40,7 +40,7 @@ all: $(TARGET)
 
 # Task producing target from built files
 $(TARGET): $(OBJS)
-	@echo "Building..."
+	@echo "🚧 Building..."
 	mkdir -p $(dir $@)
 	$(CXX) $(OBJS) -o $@ $(LDPATHS) $(LDFLAGS)
 
@@ -52,7 +52,7 @@ $(BUILD)/%.o: $(SRC)/%.cpp
 # Clean task
 .PHONY: clean
 clean:
-	@echo "Clearing..."
+	@echo "🧹 Clearing..."
 	rm -rf build
 
 # Include all dependencies
