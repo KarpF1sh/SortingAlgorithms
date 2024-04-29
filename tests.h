@@ -28,7 +28,6 @@ void sequential_search(){
     char choice;
     std::cout << "Do you want to enter the key manually? (y/n): ";
     std::cin >> choice;
-
     int key;
     if (choice == 'y' || choice == 'Y') {
         std::cout << "Enter the key value to search for: ";
@@ -37,12 +36,10 @@ void sequential_search(){
         // Generate key randomly
         key = utils::generateRandomKey(dataSize);
     }
-
     // comparison counter
     int comparisons = 0;
     // Perform sequential search
     int index = searchAlgs::sequentialSearch(testData, key, comparisons);
-
     // Output the result
     if (index != -1) {
         std::cout << "Key " << key << " found at index " << index << ", Comparisons:" << comparisons << std::endl;
@@ -63,22 +60,20 @@ void binary_search() {
     // Generate test data
     std::vector<int> testData = utils::generateOddIntegers(dataSize);
 
-    // Timer object
-    Timer timer;
-
-    // Variables to store elapsed time and comparisons
-    double elapsedTime;
-    int comparisons;
-
     // Perform operations for the specified number of repetitions
 
     std::cout << "Sequential Search:\n";
     for (int i = 0; i < repetitions; ++i) {
         // Generate random key for search
         int key = utils::generateRandomKey(dataSize);
+        std::cout << "Key: " << key << std::endl;
 
-        // Reset the comparison counter
-        comparisons = 0;
+        // Variables to store elapsed time and comparisons
+        double elapsedTime;
+        int comparisons = 0;
+
+        // Timer object
+        Timer timer;
 
         // Perform sequential search
         int index = searchAlgs::sequentialSearch(testData, key, comparisons);
@@ -97,9 +92,14 @@ void binary_search() {
     for (int i = 0; i < repetitions; ++i) {
         // Generate random key for search
         int key = utils::generateRandomKey(dataSize);
+        std::cout << "Key: " << key << std::endl;
 
-        // Reset the comparison counter
-        comparisons = 0;
+        // Variables to store elapsed time and comparisons
+        double elapsedTime;
+        int comparisons = 0;
+
+        // Timer object
+        Timer timer;
 
         // Perform binary search
         int index = searchAlgs::binarySearch(testData, key, comparisons);
