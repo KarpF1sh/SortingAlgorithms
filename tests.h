@@ -152,7 +152,7 @@ void insertion_sort() {
 }
 
 // Perform merge sort
-void performance_comparison() {
+void quick_sort() {
     // Ask the user for the size of the data and the slice to print
     int dataSize, sliceSize;
     std::cout << "Enter the size of the data: ";
