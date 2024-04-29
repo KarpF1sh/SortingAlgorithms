@@ -7,7 +7,8 @@
 
 // Function to perform sequential search
 int sequentialSearch(const std::vector<int>& data, int key, int& comparisons) {
-    for (int i = 0; i < data.size(); ++i) {
+
+    for (std::vector<int>::size_type i = 0; i < data.size(); ++i) {
         comparisons++;
         if (data[i] == key) {
             return i; // Return index if key is found
