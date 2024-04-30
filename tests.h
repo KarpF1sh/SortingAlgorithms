@@ -4,6 +4,7 @@
 #include "searchAlgs.h"
 #include "sortAlgs.h"
 #include "timer.h"
+#include <fstream>
 
 // Function prototypes
 
@@ -28,7 +29,6 @@ void sequential_search(){
     char choice;
     std::cout << "Do you want to enter the key manually? (y/n): ";
     std::cin >> choice;
-
     int key;
     if (choice == 'y' || choice == 'Y') {
         std::cout << "Enter the key value to search for: ";
@@ -37,12 +37,10 @@ void sequential_search(){
         // Generate key randomly
         key = utils::generateRandomKey(dataSize);
     }
-
     // comparison counter
     int comparisons = 0;
     // Perform sequential search
     int index = searchAlgs::sequentialSearch(testData, key, comparisons);
-
     // Output the result
     if (index != -1) {
         std::cout << "Key " << key << " found at index " << index << ", Comparisons:" << comparisons << std::endl;
@@ -63,22 +61,20 @@ void binary_search() {
     // Generate test data
     std::vector<int> testData = utils::generateOddIntegers(dataSize);
 
-    // Timer object
-    Timer timer;
-
-    // Variables to store elapsed time and comparisons
-    double elapsedTime;
-    int comparisons;
-
     // Perform operations for the specified number of repetitions
 
     std::cout << "Sequential Search:\n";
     for (int i = 0; i < repetitions; ++i) {
         // Generate random key for search
         int key = utils::generateRandomKey(dataSize);
+        std::cout << "Key: " << key << std::endl;
 
-        // Reset the comparison counter
-        comparisons = 0;
+        // Variables to store elapsed time and comparisons
+        double elapsedTime;
+        int comparisons = 0;
+
+        // Timer object
+        Timer timer;
 
         // Perform sequential search
         int index = searchAlgs::sequentialSearch(testData, key, comparisons);
@@ -97,9 +93,14 @@ void binary_search() {
     for (int i = 0; i < repetitions; ++i) {
         // Generate random key for search
         int key = utils::generateRandomKey(dataSize);
+        std::cout << "Key: " << key << std::endl;
 
-        // Reset the comparison counter
-        comparisons = 0;
+        // Variables to store elapsed time and comparisons
+        double elapsedTime;
+        int comparisons = 0;
+
+        // Timer object
+        Timer timer;
 
         // Perform binary search
         int index = searchAlgs::binarySearch(testData, key, comparisons);
@@ -151,8 +152,8 @@ void insertion_sort() {
     std::cout << "Time taken for sorting: " << elapsedTime << " seconds, Comparisons:" << comparisons << ", assigments:" << assignments << std::endl;
 }
 
-// Perform merge sort
-void performance_comparison() {
+// Perform quick sort
+void quick_sort() {
     // Ask the user for the size of the data and the slice to print
     int dataSize, sliceSize;
     std::cout << "Enter the size of the data: ";
@@ -188,8 +189,20 @@ void performance_comparison() {
 
 // Perform performance comparison
 void sorting_speed() {
+
+    // Open the output file
+    //std::ofstream insertionFile("./data/insertion.csv");
+    // Write the header row
+    //insertionFile << "Amount,Comparisons,Assignments,Time(ms)" << std::endl;
+
+    // Open the output file
+    //std::ofstream mergeFile("./data/merge.csv");
+    // Write the header row
+    //mergeFile << "Amount,Comparisons,Assignments,Time(ms)" << std::endl;
+
     // Get speed samples from 100 to 10000 with a step of 100
     for (int i = 100; i < 10000; i = i + 100) {
+
         // Generate random data from 0 to 10000 with i elements
         std::vector<int> data = utils::generateRandomData(i, 10000);
 
@@ -205,28 +218,39 @@ void sorting_speed() {
 
         // Variables to store comparisons and assignments
         int insertionComparisons = 0;
-        int insertionAssigments = 0;
+        int insertionAssignments = 0;
         // Reset the timer
         timer.reset();
         // Perform insertion sort
-        sortAlgs::insertionSort(insertionData, insertionComparisons, insertionAssigments);
+        sortAlgs::insertionSort(insertionData, insertionComparisons, insertionAssignments);
         // Get the elapsed time
         double insertionTime = timer.elapsed_time();
+
+        // Write the insertion sort results to the file
+        //insertionFile << i << "," << insertionComparisons << "," << insertionAssignments << "," << insertionTime * 1000 << std::endl;
+
 
         // Merge Sort
         // Copy the data to another vector
         std::vector<int> mergeData = data;
         // Variables to store comparisons and assignments
         int mergeComparisons = 0;
-        int mergeAssigments = 0;
+        int mergeAssignments = 0;
         // Reset the timer
         timer.reset();
         // Perform merge sort
-        sortAlgs::mergeSort(mergeData, 0, i - 1, mergeComparisons, mergeAssigments);
+        sortAlgs::mergeSort(mergeData, 0, i - 1, mergeComparisons, mergeAssignments);
         double mergeTime = timer.elapsed_time();
 
+        // Write the insertion sort results to the file
+        //mergeFile << i << "," << mergeComparisons << "," << mergeAssignments << "," << mergeTime * 1000 << std::endl;
+
         // Output results
-        std::cout << "insertion_sort\tComparisons:" <<  insertionComparisons << "\tAssigments:" << insertionAssigments << "\tTime:" << insertionTime * 1000 <<  std::endl;
-        std::cout << "merge_sort\tComparisons:" << mergeComparisons << "\tAssigments:" << mergeAssigments << "\tTime:" << mergeTime * 1000 << std::endl << std::endl;
+        std::cout << "insertion_sort\tComparisons:" <<  insertionComparisons << "\tAssigments:" << insertionAssignments << "\tTime:" << insertionTime * 1000 <<  std::endl;
+        std::cout << "merge_sort\tComparisons:" << mergeComparisons << "\tAssigments:" << mergeAssignments << "\tTime:" << mergeTime * 1000 << std::endl << std::endl;
     }
+
+    // Close the output file
+    //mergeFile.close();
+    //insertionFile.close();
 }

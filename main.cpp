@@ -36,7 +36,7 @@ int main(){
                 insertion_sort();
                 break;
             case 4:
-                performance_comparison();
+                quick_sort();
                 break;
             case 5:
                 sorting_speed();

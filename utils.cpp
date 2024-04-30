@@ -36,7 +36,5 @@ void utils::printArraySlice(const std::vector<int>& arr, int start, int end) {
 }
 
 int utils::generateRandomKey(int dataSize) {
-    // Seed for random number generation
-    srand(time(0));
     return rand() % (2 * dataSize + 1); // Random number between 0 and 2n
 }
