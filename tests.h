@@ -4,6 +4,7 @@
 #include "searchAlgs.h"
 #include "sortAlgs.h"
 #include "timer.h"
+#include <fstream>
 
 // Function prototypes
 
@@ -151,7 +152,7 @@ void insertion_sort() {
     std::cout << "Time taken for sorting: " << elapsedTime << " seconds, Comparisons:" << comparisons << ", assigments:" << assignments << std::endl;
 }
 
-// Perform merge sort
+// Perform quick sort
 void quick_sort() {
     // Ask the user for the size of the data and the slice to print
     int dataSize, sliceSize;
@@ -188,8 +189,20 @@ void quick_sort() {
 
 // Perform performance comparison
 void sorting_speed() {
-    // Get speed samples from 100 to 100000 with a step of 100
-    for (int i = 100; i < 100000; i = i + 100) {
+
+    // Open the output file
+    //std::ofstream insertionFile("./data/insertion.csv");
+    // Write the header row
+    //insertionFile << "Amount,Comparisons,Assignments,Time(ms)" << std::endl;
+
+    // Open the output file
+    //std::ofstream mergeFile("./data/merge.csv");
+    // Write the header row
+    //mergeFile << "Amount,Comparisons,Assignments,Time(ms)" << std::endl;
+
+    // Get speed samples from 100 to 10000 with a step of 100
+    for (int i = 100; i < 10000; i = i + 100) {
+
         // Generate random data from 0 to 10000 with i elements
         std::vector<int> data = utils::generateRandomData(i, 10000);
 
@@ -205,28 +218,39 @@ void sorting_speed() {
 
         // Variables to store comparisons and assignments
         int insertionComparisons = 0;
-        int insertionAssigments = 0;
+        int insertionAssignments = 0;
         // Reset the timer
         timer.reset();
         // Perform insertion sort
-        sortAlgs::insertionSort(insertionData, insertionComparisons, insertionAssigments);
+        sortAlgs::insertionSort(insertionData, insertionComparisons, insertionAssignments);
         // Get the elapsed time
         double insertionTime = timer.elapsed_time();
+
+        // Write the insertion sort results to the file
+        //insertionFile << i << "," << insertionComparisons << "," << insertionAssignments << "," << insertionTime * 1000 << std::endl;
+
 
         // Merge Sort
         // Copy the data to another vector
         std::vector<int> mergeData = data;
         // Variables to store comparisons and assignments
         int mergeComparisons = 0;
-        int mergeAssigments = 0;
+        int mergeAssignments = 0;
         // Reset the timer
         timer.reset();
         // Perform merge sort
-        sortAlgs::mergeSort(mergeData, 0, i - 1, mergeComparisons, mergeAssigments);
+        sortAlgs::mergeSort(mergeData, 0, i - 1, mergeComparisons, mergeAssignments);
         double mergeTime = timer.elapsed_time();
 
+        // Write the insertion sort results to the file
+        //mergeFile << i << "," << mergeComparisons << "," << mergeAssignments << "," << mergeTime * 1000 << std::endl;
+
         // Output results
-        std::cout << "insertion_sort\tComparisons:" <<  insertionComparisons << "\tAssigments:" << insertionAssigments << "\tTime:" << insertionTime * 1000 <<  std::endl;
-        std::cout << "merge_sort\tComparisons:" << mergeComparisons << "\tAssigments:" << mergeAssigments << "\tTime:" << mergeTime * 1000 << std::endl << std::endl;
+        std::cout << "insertion_sort\tComparisons:" <<  insertionComparisons << "\tAssigments:" << insertionAssignments << "\tTime:" << insertionTime * 1000 <<  std::endl;
+        std::cout << "merge_sort\tComparisons:" << mergeComparisons << "\tAssigments:" << mergeAssignments << "\tTime:" << mergeTime * 1000 << std::endl << std::endl;
     }
+
+    // Close the output file
+    //mergeFile.close();
+    //insertionFile.close();
 }
