@@ -1,4 +1,4 @@
-# Project Name
+# Sorting and searching algorithm testing
 
 Sorting algorithm prject for TAMK course
 
