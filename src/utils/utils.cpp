@@ -15,9 +15,6 @@ std::vector<int> utils::generateOddIntegers(int size) {
 
 // Function to generate random integer values
 std::vector<int> utils::generateRandomData(int size, int maxValue) {
-    // Seed for random number generation
-    srand(time(0));
-
     std::vector<int> data;
     for (int i = 0; i < size; ++i) {
         // Generate random number between 0 and maxValue
